@@ -30,10 +30,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/number_view">
 
+        <!-- TODO: Should dynamically use proper size according to screen size -->
         <Button
             android:id="@+id/btn_clear"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:text="C"
@@ -43,8 +44,8 @@
 
         <Button
             android:id="@+id/btn_sharp1"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginStart="20dp"
             android:text="#1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -53,8 +54,8 @@
 
         <Button
             android:id="@+id/btn_sharp2"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginStart="20dp"
             android:text="#2"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -63,8 +64,8 @@
 
         <Button
             android:id="@+id/btn_divide"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginStart="20dp"
             android:text="÷"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -73,8 +74,8 @@
 
         <Button
             android:id="@+id/btn_7"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginTop="10dp"
             android:text="7"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -83,8 +84,8 @@
 
         <Button
             android:id="@+id/btn_8"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="8"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_sharp1"
@@ -92,8 +93,8 @@
 
         <Button
             android:id="@+id/btn_5"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="5"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_8"
@@ -101,8 +102,8 @@
 
         <Button
             android:id="@+id/btn_2"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="2"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_5"
@@ -110,8 +111,8 @@
 
         <Button
             android:id="@+id/btn_0"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="0"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_2"
@@ -119,8 +120,8 @@
 
         <Button
             android:id="@+id/btn_9"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="9"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_sharp2"
@@ -128,8 +129,8 @@
 
         <Button
             android:id="@+id/btn_6"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="6"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_9"
@@ -137,8 +138,8 @@
 
         <Button
             android:id="@+id/btn_3"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="3"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_6"
@@ -146,8 +147,8 @@
 
         <Button
             android:id="@+id/btn_point"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="."
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_3"
@@ -155,8 +156,8 @@
 
         <Button
             android:id="@+id/btn_multiply"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="×"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_divide"
@@ -164,8 +165,8 @@
 
         <Button
             android:id="@+id/btn_subtract"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="-"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_multiply"
@@ -173,8 +174,8 @@
 
         <Button
             android:id="@+id/btn_add"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="+"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_subtract"
@@ -182,8 +183,8 @@
 
         <Button
             android:id="@+id/btn_calculate"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:text="="
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="@+id/btn_subtract"
@@ -191,8 +192,8 @@
 
         <Button
             android:id="@+id/btn_4"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginTop="10dp"
             android:text="4"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -201,8 +202,8 @@
 
         <Button
             android:id="@+id/btn_1"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginTop="10dp"
             android:text="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -211,8 +212,8 @@
 
         <Button
             android:id="@+id/btn_plus_minus"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginTop="10dp"
             android:text="+/-"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
