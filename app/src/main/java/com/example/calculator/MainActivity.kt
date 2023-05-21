@@ -7,10 +7,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
+// TODO: Fix spaces before colon (https://developer.android.com/kotlin/style-guide)
+// TODO: Problem of this code comes from the mixture of UI and business logic.
+//       Investigate business logic first with the input orders only (e.g. 3 + 3 + 6 * 3 = ).
 class MainActivity : AppCompatActivity() {
 
     // TODO: Change this to companion object
-    private val TAG : String = "Calculator";
+    private val TAG : String = "Calculator"
+    private val DEBUG : Boolean = true
 
     private lateinit var numberView : TextView
 
@@ -35,15 +39,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonDivide : Button
 
     private lateinit var buttonCalculate : Button
-
     private lateinit var buttonClear : Button
 
     // TODO: Implement these functionalities
     // lateinit var buttonPlusMinus : Button
     // lateinit var buttonPoint : Button
 
-    private var currentAnswer : Long = 0
+    private var startNewNumberWhenTypingStarts : Boolean = true
+    private var leftOperand : Long? = null
+    private var rightOperand : Long? = null
     private var currentOperation : Button? = null
+    private var pendingOperationIsOnlyPerformedByCalculateButton = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,26 +86,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setOnClickListenersOnNumberButtons() {
-        button0.setOnClickListener { writeDigit(0) }
-        button1.setOnClickListener { writeDigit(1) }
-        button2.setOnClickListener { writeDigit(2) }
-        button3.setOnClickListener { writeDigit(3) }
-        button4.setOnClickListener { writeDigit(4) }
-        button5.setOnClickListener { writeDigit(5) }
-        button6.setOnClickListener { writeDigit(6) }
-        button7.setOnClickListener { writeDigit(7) }
-        button8.setOnClickListener { writeDigit(8) }
-        button9.setOnClickListener { writeDigit(9) }
+        button0.setOnClickListener { writeDigit(it as Button) }
+        button1.setOnClickListener { writeDigit(it as Button) }
+        button2.setOnClickListener { writeDigit(it as Button) }
+        button3.setOnClickListener { writeDigit(it as Button) }
+        button4.setOnClickListener { writeDigit(it as Button) }
+        button5.setOnClickListener { writeDigit(it as Button) }
+        button6.setOnClickListener { writeDigit(it as Button) }
+        button7.setOnClickListener { writeDigit(it as Button) }
+        button8.setOnClickListener { writeDigit(it as Button) }
+        button9.setOnClickListener { writeDigit(it as Button) }
     }
 
     @SuppressLint("SetTextI18n")
-    private fun writeDigit(digit: Long) {
+    private fun writeDigit(digitButton: Button) {
         val currentNumber : String = numberView.text.toString()
-        if (digit == 0L && currentNumber == "0") {
-            // TODO: Handle the point input
+        val digitString = digitButton.text.toString()
+        if (digitString.toLong() == 0L && currentNumber == "0") {
+            // TODO: Handle the decimal point button event
             return
         }
-        numberView.text = currentNumber + digit
+        if (startNewNumberWhenTypingStarts) {
+            numberView.text = digitString
+            startNewNumberWhenTypingStarts = false
+        } else {
+            numberView.text = currentNumber + digitString
+        }
+        rightOperand = numberView.text.toString().toLong()
     }
 
     private fun setOnClickListenersOnOperationButtons() {
@@ -110,18 +123,95 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setOperation(operation: Button) {
+        if (hasPendingOperation() && !pendingOperationIsOnlyPerformedByCalculateButton) {
+            val result = calculate(leftOperand as Long, rightOperand as Long,
+                currentOperation as Button)
+
+            leftOperand = result
+            numberView.text = result.toString()
+        }
+
+        if (!numberView.text.toString().isEmpty()) {
+            leftOperand = numberView.text.toString().toLong()
+        }
+
         currentOperation = operation
-        Log.d(TAG, "Set operation to: " + operation.text)
+        rightOperand = null
+        startNewNumberWhenTypingStarts = true
+        pendingOperationIsOnlyPerformedByCalculateButton = false
     }
+
+    private fun hasPendingOperation() : Boolean {
+        return leftOperand != null && currentOperation != null && rightOperand != null
+    }
+
+    // Use cases:
+    // Case 0. 1 =          (Should show 1)
+    // Case 1. 1 + 2 =      (Should show 3)
+    // Case 2. 2 + 3 + 4    (Should show 5)
+    // Case 3. 2 + 3 = =    (Should show 5 then 8)
 
     private fun setOnClickListenersOnOtherButtons() {
         buttonCalculate.setOnClickListener {
+            if (leftOperand == null) {
+                return@setOnClickListener
+            }
+
+            if (!hasPendingOperation()) {
+                return@setOnClickListener
+            }
+
+            val result = calculate(leftOperand as Long, rightOperand as Long,
+                currentOperation as Button)
+
+            leftOperand = result
+            numberView.text = result.toString()
+
+            pendingOperationIsOnlyPerformedByCalculateButton = true
+            startNewNumberWhenTypingStarts = true
         }
 
         buttonClear.setOnClickListener {
-            currentAnswer = 0
-            currentOperation = null
-            numberView.text = ""
+            clear()
         }
+    }
+
+    private fun clear() {
+        startNewNumberWhenTypingStarts = true
+        pendingOperationIsOnlyPerformedByCalculateButton = false
+        leftOperand = null
+        rightOperand = null
+        currentOperation = null
+
+        numberView.text = ""
+    }
+
+    private fun calculate(leftOperand: Long, rightOperand: Long, operation: Button) : Long? {
+        var result: Long?
+
+        when (operation) {
+            buttonAdd -> result = leftOperand + rightOperand
+            buttonSubtract -> result = leftOperand - rightOperand
+            buttonMultiply -> result = leftOperand * rightOperand
+            buttonDivide -> {
+                if (rightOperand == 0L) {
+                    if (DEBUG) {
+                        Log.d(TAG, "Divide by 0 !!")
+                    }
+                    clear()
+                    result = null
+                } else {
+                    result = leftOperand / rightOperand
+                }
+            }
+            else -> {
+                Log.e(TAG, "Should not reach here! Invalid operand ${operation.text}")
+                result = null
+            }
+        }
+        if (DEBUG) {
+            Log.d(TAG, "$leftOperand ${operation.text} $rightOperand = $result")
+        }
+        return result
     }
 }
