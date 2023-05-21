@@ -1,46 +1,45 @@
 package com.example.calculator
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var numberView : TextView
+    private lateinit var numberView : TextView
 
     // Buttons for 0-9
     // TODO: Too many button variables. Obviously this is not the best way.
     //       We can define a class (NumberButton), and dynamically create any buttons
     //       with their onClickListeners attached.
-    lateinit var button0 : Button
-    lateinit var button1 : Button
-    lateinit var button2 : Button
-    lateinit var button3 : Button
-    lateinit var button4 : Button
-    lateinit var button5 : Button
-    lateinit var button6 : Button
-    lateinit var button7 : Button
-    lateinit var button8 : Button
-    lateinit var button9 : Button
+    private lateinit var button0 : Button
+    private lateinit var button1 : Button
+    private lateinit var button2 : Button
+    private lateinit var button3 : Button
+    private lateinit var button4 : Button
+    private lateinit var button5 : Button
+    private lateinit var button6 : Button
+    private lateinit var button7 : Button
+    private lateinit var button8 : Button
+    private lateinit var button9 : Button
 
-    lateinit var buttonAdd : Button
-    lateinit var buttonSubtract : Button
-    lateinit var buttonMultiply : Button
-    lateinit var buttonDivide : Button
+    private lateinit var buttonAdd : Button
+    private lateinit var buttonSubtract : Button
+    private lateinit var buttonMultiply : Button
+    private lateinit var buttonDivide : Button
 
-    lateinit var buttonCalculate : Button
+    private lateinit var buttonCalculate : Button
 
-    lateinit var buttonClear : Button
+    private lateinit var buttonClear : Button
 
     // TODO: Implement these functionalities
     // lateinit var buttonPlusMinus : Button
     // lateinit var buttonPoint : Button
 
-    var currentAnswer : Long = 0
-    var currentOperation : Button? = null
+    private var currentAnswer : Long = 0
+    private var currentOperation : Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,10 +90,10 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun writeDigit(digit: Long) {
-        var currentNumber : String = numberView.text.toString()
-        if (digit == 0L && currentNumber.equals("0")) {
+        val currentNumber : String = numberView.text.toString()
+        if (digit == 0L && currentNumber == "0") {
             // TODO: Handle the point input
-            return;
+            return
         }
         numberView.text = currentNumber + digit
     }
