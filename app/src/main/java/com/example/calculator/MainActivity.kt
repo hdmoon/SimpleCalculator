@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
     // lateinit var buttonPoint: Button
 
     private var startNewNumberWhenTypingStarts: Boolean = true
-    private var leftOperand: Long? = null
-    private var rightOperand: Long? = null
+    private var leftOperand: Double? = null
+    private var rightOperand: Double? = null
     private var currentOperation: Button? = null
     private var pendingOperationIsOnlyPerformedByCalculateButton = false
 
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
     private fun writeDigit(digitButton: Button) {
         val currentNumber: String = numberView.text.toString()
         val digitString = digitButton.text.toString()
-        if (digitString.toLong() == 0L && currentNumber == "0") {
+        if (digitString.toDouble() == 0.0 && currentNumber == "0") {
             // TODO: Handle the decimal point button event
             return
         }
@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             numberView.text = currentNumber + digitString
         }
-        rightOperand = numberView.text.toString().toLong()
+        rightOperand = numberView.text.toString().toDouble()
     }
 
     private fun setOnClickListenersOnOperationButtons() {
@@ -122,15 +122,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun setOperation(operation: Button) {
         if (hasPendingOperation() && !pendingOperationIsOnlyPerformedByCalculateButton) {
-            val result = calculate(leftOperand as Long, rightOperand as Long,
+            val result = calculate(leftOperand as Double, rightOperand as Double,
                 currentOperation as Button) ?: return
 
             leftOperand = result
-            numberView.text = result.toString()
+            numberView.text = formatDouble(result)
         }
 
         if (numberView.text.toString().isNotEmpty()) {
-            leftOperand = numberView.text.toString().toLong()
+            leftOperand = numberView.text.toString().toDouble()
         }
 
         currentOperation = operation
@@ -159,11 +159,11 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val result = calculate(leftOperand as Long, rightOperand as Long,
+            val result = calculate(leftOperand as Double, rightOperand as Double,
                 currentOperation as Button) ?: return@setOnClickListener
 
             leftOperand = result
-            numberView.text = result.toString()
+            numberView.text = formatDouble(result)
 
             pendingOperationIsOnlyPerformedByCalculateButton = true
             startNewNumberWhenTypingStarts = true
@@ -184,17 +184,17 @@ class MainActivity : AppCompatActivity() {
         numberView.text = ""
     }
 
-    private fun calculate(leftOperand: Long, rightOperand: Long, operation: Button): Long? {
-        val result: Long?
+    private fun calculate(leftOperand: Double, rightOperand: Double, operation: Button): Double? {
+        val result: Double?
 
         when (operation) {
             buttonAdd -> result = leftOperand + rightOperand
             buttonSubtract -> result = leftOperand - rightOperand
             buttonMultiply -> result = leftOperand * rightOperand
             buttonDivide -> {
-                if (rightOperand == 0L) {
+                if (rightOperand == 0.0) {
                     if (DEBUG) {
-                        Log.d(TAG, "Divide by 0 !!")
+                        Log.d(TAG, "Divide by 0. Clearing the state.")
                     }
                     clear()
                     result = null
@@ -211,5 +211,10 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "$leftOperand ${operation.text} $rightOperand = $result")
         }
         return result
+    }
+
+    private fun formatDouble(number: Double): String {
+        return if (number % 1.0 != 0.0) String.format("%s", number)
+        else String.format("%.0f", number)
     }
 }
