@@ -1,6 +1,6 @@
 # SimpleCalculator
-A simple calculator project for Kotlin practice
-Note: This app is written without much consideration on quality. Use with care.
+A simple calculator project for Kotlin practice.\
+This app is written without much consideration of app/code quality. Use with care.
 
 # Ways to improve this app
 0. Fix UI issues
