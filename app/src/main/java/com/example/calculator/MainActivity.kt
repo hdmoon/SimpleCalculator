@@ -2,11 +2,15 @@ package com.example.calculator
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+
+    // TODO: Change this to companion object
+    private val TAG : String = "Calculator";
 
     private lateinit var numberView : TextView
 
@@ -99,14 +103,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setOnClickListenersOnOperationButtons() {
-        buttonAdd.setOnClickListener {
-        }
-        buttonSubtract.setOnClickListener {
-        }
-        buttonMultiply.setOnClickListener {
-        }
-        buttonDivide.setOnClickListener {
-        }
+        buttonAdd.setOnClickListener { setOperation(it as Button) }
+        buttonSubtract.setOnClickListener { setOperation(it as Button) }
+        buttonMultiply.setOnClickListener { setOperation(it as Button) }
+        buttonDivide.setOnClickListener { setOperation(it as Button) }
+    }
+
+    private fun setOperation(operation: Button) {
+        currentOperation = operation
+        Log.d(TAG, "Set operation to: " + operation.text)
     }
 
     private fun setOnClickListenersOnOtherButtons() {
