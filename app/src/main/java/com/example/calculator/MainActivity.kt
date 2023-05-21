@@ -7,48 +7,46 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-// TODO: Fix spaces before colon (https://developer.android.com/kotlin/style-guide)
-// TODO: Problem of this code comes from the mixture of UI and business logic.
-//       Investigate business logic first with the input orders only (e.g. 3 + 3 + 6 * 3 = ).
 class MainActivity : AppCompatActivity() {
 
-    // TODO: Change this to companion object
-    private val TAG : String = "Calculator"
-    private val DEBUG : Boolean = true
+    companion object {
+        private const val TAG: String = "Calculator"
+        private const val DEBUG: Boolean = true
+    }
 
-    private lateinit var numberView : TextView
+    private lateinit var numberView: TextView
 
     // Buttons for 0-9
     // TODO: Too many button variables. Obviously this is not the best way.
     //       We can define a class (NumberButton), and dynamically create any buttons
     //       with their onClickListeners attached.
-    private lateinit var button0 : Button
-    private lateinit var button1 : Button
-    private lateinit var button2 : Button
-    private lateinit var button3 : Button
-    private lateinit var button4 : Button
-    private lateinit var button5 : Button
-    private lateinit var button6 : Button
-    private lateinit var button7 : Button
-    private lateinit var button8 : Button
-    private lateinit var button9 : Button
+    private lateinit var button0: Button
+    private lateinit var button1: Button
+    private lateinit var button2: Button
+    private lateinit var button3: Button
+    private lateinit var button4: Button
+    private lateinit var button5: Button
+    private lateinit var button6: Button
+    private lateinit var button7: Button
+    private lateinit var button8: Button
+    private lateinit var button9: Button
 
-    private lateinit var buttonAdd : Button
-    private lateinit var buttonSubtract : Button
-    private lateinit var buttonMultiply : Button
-    private lateinit var buttonDivide : Button
+    private lateinit var buttonAdd: Button
+    private lateinit var buttonSubtract: Button
+    private lateinit var buttonMultiply: Button
+    private lateinit var buttonDivide: Button
 
-    private lateinit var buttonCalculate : Button
-    private lateinit var buttonClear : Button
+    private lateinit var buttonCalculate: Button
+    private lateinit var buttonClear: Button
 
     // TODO: Implement these functionalities
-    // lateinit var buttonPlusMinus : Button
-    // lateinit var buttonPoint : Button
+    // lateinit var buttonPlusMinus: Button
+    // lateinit var buttonPoint: Button
 
-    private var startNewNumberWhenTypingStarts : Boolean = true
-    private var leftOperand : Long? = null
-    private var rightOperand : Long? = null
-    private var currentOperation : Button? = null
+    private var startNewNumberWhenTypingStarts: Boolean = true
+    private var leftOperand: Long? = null
+    private var rightOperand: Long? = null
+    private var currentOperation: Button? = null
     private var pendingOperationIsOnlyPerformedByCalculateButton = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,7 +98,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun writeDigit(digitButton: Button) {
-        val currentNumber : String = numberView.text.toString()
+        val currentNumber: String = numberView.text.toString()
         val digitString = digitButton.text.toString()
         if (digitString.toLong() == 0L && currentNumber == "0") {
             // TODO: Handle the decimal point button event
@@ -131,7 +129,7 @@ class MainActivity : AppCompatActivity() {
             numberView.text = result.toString()
         }
 
-        if (!numberView.text.toString().isEmpty()) {
+        if (numberView.text.toString().isNotEmpty()) {
             leftOperand = numberView.text.toString().toLong()
         }
 
@@ -141,7 +139,7 @@ class MainActivity : AppCompatActivity() {
         pendingOperationIsOnlyPerformedByCalculateButton = false
     }
 
-    private fun hasPendingOperation() : Boolean {
+    private fun hasPendingOperation(): Boolean {
         return leftOperand != null && currentOperation != null && rightOperand != null
     }
 
@@ -186,8 +184,8 @@ class MainActivity : AppCompatActivity() {
         numberView.text = ""
     }
 
-    private fun calculate(leftOperand: Long, rightOperand: Long, operation: Button) : Long? {
-        var result: Long?
+    private fun calculate(leftOperand: Long, rightOperand: Long, operation: Button): Long? {
+        val result: Long?
 
         when (operation) {
             buttonAdd -> result = leftOperand + rightOperand
