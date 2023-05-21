@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
     private fun setOperation(operation: Button) {
         if (hasPendingOperation() && !pendingOperationIsOnlyPerformedByCalculateButton) {
             val result = calculate(leftOperand as Long, rightOperand as Long,
-                currentOperation as Button)
+                currentOperation as Button) ?: return
 
             leftOperand = result
             numberView.text = result.toString()
@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             val result = calculate(leftOperand as Long, rightOperand as Long,
-                currentOperation as Button)
+                currentOperation as Button) ?: return@setOnClickListener
 
             leftOperand = result
             numberView.text = result.toString()
