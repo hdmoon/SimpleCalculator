@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -40,8 +41,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonClear: Button
 
     // TODO: Implement these functionalities
-    // lateinit var buttonPlusMinus: Button
-    // lateinit var buttonPoint: Button
+    lateinit var buttonNegate: Button
+    lateinit var buttonDecimalPoint: Button
 
     private var startNewNumberWhenTypingStarts: Boolean = true
     private var leftOperand: Double? = null
@@ -81,6 +82,16 @@ class MainActivity : AppCompatActivity() {
         buttonCalculate = findViewById(R.id.btn_calculate)
 
         buttonClear = findViewById(R.id.btn_clear)
+
+        buttonNegate = findViewById(R.id.btn_negate)
+        buttonNegate.setOnClickListener {
+            Toast.makeText(this, "Not supported yet!", Toast.LENGTH_SHORT).show()
+        }
+
+        buttonDecimalPoint = findViewById(R.id.btn_decimal_point)
+        buttonDecimalPoint.setOnClickListener {
+            Toast.makeText(this, "Not supported yet!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setOnClickListenersOnNumberButtons() {
